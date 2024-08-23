@@ -1,41 +1,28 @@
-
-# Django Custom User Model with Permissions and Groups
+# LibraryProject
 
 ## Overview
-This project demonstrates how to create a custom user model in Django, add custom fields, and implement permissions and groups to control access within the application.
 
-## Custom User Model
-The custom user model `CustomUser` extends Django's `AbstractUser`. Two additional fields have been added:
-- `date_of_birth`: A `DateField` to store the user's date of birth.
-- `profile_photo`: An `ImageField` to store the user's profile photo.
+LibraryProject is a Django-based web application designed to manage a library's book collection, including details about books, authors, and libraries. This project demonstrates the use of Django’s ORM to handle complex relationships between models, custom user models, and permissions.
 
-### Location
-- **Model**: `bookshelf/models.py`
-- **Admin Configuration**: `bookshelf/admin.py`
+## Features
 
-## Permissions Setup
-Custom permissions have been defined for the `CustomUser` model:
+- **Book Management:** Create, view, edit, and delete books.
+- **Custom User Model:** Extends Django's default user model with additional fields.
+- **Permissions and Groups:** Implement custom permissions and groups to control access to various parts of the application.
+- **Admin Interface:** Customizable admin interface for managing books and users.
 
-- `can_edit`: Permission to edit user details.
-- `can_create`: Permission to create new users.
+## Installation
 
-These permissions are used throughout the application to control user access to various functionalities.
+### Prerequisites
 
-### Location
-- **Permissions Definition**: `bookshelf/models.py` within the `Meta` class of `CustomUser`.
+- Python 3.x
+- Django 4.x (or compatible version)
+- Additional dependencies as listed in `requirements.txt`
 
-### Usage in Views
-To enforce these permissions in views, the following decorators can be used:
-```python
-from django.contrib.auth.decorators import permission_required
+### Steps to Install
 
-@permission_required('bookshelf.can_edit', raise_exception=True)
-def edit_user(request, user_id):
-    # Logic to edit user
-    pass
+1. **Clone the Repository:**
 
-@permission_required('bookshelf.can_create', raise_exception=True)
-def create_user(request):
-    # Logic to create a new user
-    pass
-
+   ```bash
+   git clone https://github.com/yourusername/LibraryProject.git
+   cd LibraryProject
