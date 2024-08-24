@@ -1,28 +1,22 @@
-# LibraryProject.
+# Permissions and Groups Setup
 
-## Overview
+This Django application uses custom permissions and groups to control access to certain parts of the application.
 
-LibraryProject is a Django-based web application designed to manage a library's book collection, including details about books, authors, and libraries. This project demonstrates the use of Django’s ORM to handle complex relationships between models, custom user models, and permissions.
+## Custom Permissions
 
-## Features
+The `Book` model includes the following custom permissions:
+- `can_view`: Allows viewing book details.
+- `can_create`: Allows creating new book entries.
+- `can_edit`: Allows editing book entries.
+- `can_delete`: Allows deleting book entries.
 
-- **Book Management:** Create, view, edit, and delete books.
-- **Custom User Model:** Extends Django's default user model with additional fields.
-- **Permissions and Groups:** Implement custom permissions and groups to control access to various parts of the application.
-- **Admin Interface:** Customizable admin interface for managing books and users.
+## Groups
 
-## Installation
+The following groups have been set up with corresponding permissions:
+- **Editors**: Can create and edit books.
+- **Viewers**: Can view books.
+- **Admins**: Full access to create, view, edit, and delete books.
 
-### Prerequisites
+## Enforcing Permissions
 
-- Python 3.x
-- Django 4.x (or compatible version)
-- Additional dependencies as listed in `requirements.txt`
-
-### Steps to Install
-
-1. **Clone the Repository:**
-
-   ```bash
-   git clone https://github.com/yourusername/LibraryProject.git
-   cd LibraryProject
+Permissions are enforced in views using Django's `@permission_required` decorator.
