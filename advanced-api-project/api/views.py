@@ -156,4 +156,18 @@ class BookListView(generics.ListAPIView):
     
     ordering = ['title']
 
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework import generics
+from .models import YourModel
+from .serializers import YourModelSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
+class YourModelListView(generics.ListCreateAPIView):
+    queryset = YourModel.objects.all()
+    serializer_class = YourModelSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class YourModelDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = YourModel.objects.all()
+    serializer_class = YourModelSerializer
+    permission_classes = [IsAuthenticated]
+
