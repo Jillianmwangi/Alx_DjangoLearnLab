@@ -155,3 +155,5 @@ class BookListView(generics.ListAPIView):
     ordering_fields = ['title', 'publication_year']
     
     ordering = ['title']
+
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
