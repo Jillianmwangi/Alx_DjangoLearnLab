@@ -131,20 +131,6 @@ from .serializers import BookSerializer
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter] 
-    filterset_fields = ['title', 'author__name', 'publication_year']  
-    search_fields = ['title', 'author__name']  
-    ordering_fields = ['title', 'publication_year']  
-    ordering = ['title'] 
-    
-from rest_framework import generics, filters
-from django_filters.rest_framework import DjangoFilterBackend
-from .models import Book
-from .serializers import BookSerializer
-
-class BookListView(generics.ListAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     
@@ -156,6 +142,22 @@ class BookListView(generics.ListAPIView):
     
     ordering = ['title']
 
+from rest_framework import generics, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated s
+from .models import Book
+from .serializers import BookSerializer
+
+class BookListView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['title', 'author__name', 'publication_year']
+    search_fields = ['title', 'author__name']
+    ordering_fields = ['title', 'publication_year']
+    ordering = ['title']
+    
+    permission_classes = [IsAuthenticatedOrReadOnly]  
 
     
 
