@@ -169,5 +169,19 @@ class YourModelListView(generics.ListCreateAPIView):
 class YourModelDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = YourModel.objects.all()
     serializer_class = YourModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated] # views.py
+from rest_framework import generics
+from django_filters import rest_framework as filters
+from .models import YourModel
+from .serializers import YourModelSerializer
+from .filters import YourModelFilter
+
+class YourModelListView(generics.ListCreateAPIView):
+    queryset = YourModel.objects.all()
+    serializer_class = YourModelSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = YourModelFilter
+
+
+
 
