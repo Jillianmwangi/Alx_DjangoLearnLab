@@ -1,78 +1,66 @@
-# blog/urls.py
-from django.urls import path
-from django.contrib.auth import views as auth_views
-from . import views
 
-urlpatterns = [
-    path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
-    path('register/', views.register, name='register'),
-    path('profile/', views.profile, name='profile'),
-]
-
-# blog/urls.py
-from django.urls import path
-from django.contrib.auth import views as auth_views
-from . import views
-
-urlpatterns = [
-    # Login URL (Django's built-in LoginView)
-    path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
-
-    # Logout URL (Django's built-in LogoutView)
-    path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
-
-    # Custom Registration View
-    path('register/', views.register, name='register'),
-
-    # User Profile View (requires login)
-    path('profile/', views.profile, name='profile'),
-]
-
-# blog/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('profile/', views.profile, name='profile'),
+    path('', views.PostListView.as_view(), name='post-list'),
+    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
+    path('post/new/', views.PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
 ]
 
 from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+from .views import add_comment, CommentUpdateView, CommentDeleteView
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='post-list'),
-    path('<int:pk>/', PostDetailView.as_view(), name='post-detail'),
-    path('new/', PostCreateView.as_view(), name='post-create'),
-    path('<int:pk>/edit/', PostUpdateView.as_view(), name='post-edit'),
-    path('<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('post/<int:post_id>/comment/', add_comment, name='add-comment'),
+    path('comment/<int:pk>/edit/', CommentUpdateView.as_view(), name='edit-comment'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete-comment'),
 ]
 
 from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+from . import views
+
+from django.urls import path
+from . import views
 
 urlpatterns = [
-   
-    path('', PostListView.as_view(), name='post-list'),
-    
-    path('<int:pk>/', PostDetailView.as_view(), name='post-detail'),
-    
-    path('new/', PostCreateView.as_view(), name='post-create'),
-    
-    path('<int:pk>/edit/', PostUpdateView.as_view(), name='post-edit'),
-    
-    path('<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('', views.PostListView.as_view(), name='post-list'),
+    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
+    path('post/new/', views.PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
+
+    # URL for adding a new comment to a post
+    path('post/<int:pk>/comments/new/', views.CommentCreateView.as_view(), name='comment-create'),
+
+    # URLs for editing and deleting comments
+    path('comment/<int:pk>/update/', views.CommentUpdateView.as_view(), name='comment-update'),
+    path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
 ]
 
 from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+from . import views
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='post-list'), 
-    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),  
-    path('post/new/', PostCreateView.as_view(), name='post-create'),  
-    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post-update'),  
-    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  
+    # Existing URL patterns
+    path('', views.PostListView.as_view(), name='post-list'),
+    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
+    path('post/new/', views.PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
+
+    # URL for adding a new comment to a post
+    path('post/<int:post_id>/comments/new/', views.CommentCreateView.as_view(), name='comment-create'),
+
+    # URLs for editing and deleting comments
+    path('comment/<int:pk>/update/', views.CommentUpdateView.as_view(), name='comment-update'),
+    path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
+
+    # URL for search functionality
+    path('search/', views.search_view, name='search'),
+
+    # URL for viewing posts by tag
+    path('tags/<str:tag_name>/', views.tagged_posts_view, name='tagged-posts'),
 ]
-
-
