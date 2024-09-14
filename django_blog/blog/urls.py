@@ -78,3 +78,11 @@ urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='register'),
     path('profile/', user_profile, name='profile'),
 ]
+
+from django.urls import path
+from .views import PostByTagListView
+
+urlpatterns = [
+    # Other URL patterns
+    path('tags/<slug:tag_slug>/', PostByTagListView.as_view(), name='posts_by_tag'),
+]
