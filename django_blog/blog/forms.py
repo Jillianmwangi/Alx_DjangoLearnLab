@@ -50,7 +50,7 @@ from taggit.forms import TagWidget
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']
+        fields = ['title', 'content', 'tags']  # Ensure tags are included
         widgets = {
-            'tags': TagWidget(attrs={'class': 'tag-input'}),  # Adding custom widget for tags
+            'tags': TagWidget(),  # Using TagWidget for the tags field
         }
