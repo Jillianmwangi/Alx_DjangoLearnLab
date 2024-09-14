@@ -168,14 +168,16 @@ from django.shortcuts import render
 from .models import Post
 
 def search_posts(request):
-    query = request.GET.get('q')
-    posts = Post.objects.all()
+    query = request.GET.get('q')  # Get the query parameter from the request
+    posts = Post.objects.all()  # Retrieve all posts as default
 
     if query:
-        posts = posts.filter(
-            title__icontains=query |  
-            content__icontains=query |  
-            tags__name__icontains=query  
-        ).distinct()
+        posts = Post.objects.filter(  # Filter posts based on the query
+            title__icontains=query  # Search in the title
+            ) | Post.objects.filter(
+            content__icontains=query  # Search in the content
+            ) | Post.objects.filter(
+            tags__name__icontains=query  # Search in the tags
+        ).distinct()  # Avoid duplicate posts in results
 
-    return render(request, 'blog/search_results.html', {'posts': posts})
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
