@@ -54,5 +54,3 @@ class PostForm(forms.ModelForm):
         widgets = {
             'tags': TagWidget(attrs={'class': 'tag-input'}),  # Adding custom widget for tags
         }
-
-    # You can also add custom validation rules here if necessary
