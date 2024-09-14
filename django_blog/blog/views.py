@@ -163,3 +163,19 @@ class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/post_form.html'
+
+from django.shortcuts import render
+from .models import Post
+
+def search_posts(request):
+    query = request.GET.get('q')
+    posts = Post.objects.all()
+
+    if query:
+        posts = posts.filter(
+            title__icontains=query |  
+            content__icontains=query |  
+            tags__name__icontains=query  
+        ).distinct()
+
+    return render(request, 'blog/search_results.html', {'posts': posts})
