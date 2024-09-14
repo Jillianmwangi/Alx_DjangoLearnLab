@@ -27,3 +27,18 @@ class PostForm(forms.ModelForm):
         if len(title) < 5:
             raise forms.ValidationError('The title must be at least 5 characters long.')
         return title
+
+from django import forms
+from .models import Comment
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+
+    # Custom validation for the content field
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if len(content) < 5:
+            raise forms.ValidationError('Comment is too short, please provide more detail.')
+        return content
