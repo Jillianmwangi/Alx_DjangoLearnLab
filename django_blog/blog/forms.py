@@ -42,3 +42,17 @@ class CommentForm(forms.ModelForm):
         if len(content) < 5:
             raise forms.ValidationError('Comment is too short, please provide more detail.')
         return content
+
+from django import forms
+from .models import Post
+from taggit.forms import TagWidget
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']
+        widgets = {
+            'tags': TagWidget(attrs={'class': 'tag-input'}),  # Adding custom widget for tags
+        }
+
+    # You can also add custom validation rules here if necessary
