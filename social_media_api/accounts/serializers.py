@@ -45,3 +45,5 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             profile_picture=validated_data.get('profile_picture', None)
         )
         return user
+
+get_user_model().objects.create_user
