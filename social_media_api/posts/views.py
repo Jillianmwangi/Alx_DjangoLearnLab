@@ -175,3 +175,5 @@ class PostDetailView(generics.RetrieveAPIView):
     def get_object(self):
         pk = self.kwargs.get('pk')
         return get_object_or_404(Post, pk=pk)
+
+generics.get_object_or_404(Post, pk=pk)
