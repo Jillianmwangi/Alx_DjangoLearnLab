@@ -23,4 +23,15 @@ router.register(r'posts', PostViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+] 
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # Other URL patterns...
+    
+    path('<int:pk>/like/', views.like_post, name='like_post'),
+    path('<int:pk>/unlike/', views.unlike_post, name='unlike_post'),
 ]
+
