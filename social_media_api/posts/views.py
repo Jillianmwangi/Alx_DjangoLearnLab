@@ -162,3 +162,16 @@ class MarkNotificationsReadView(APIView):
         notifications = Notification.objects.filter(recipient=request.user, read=False)
         notifications.update(read=True)
         return Response({'message': 'Notifications marked as read'})
+
+from rest_framework import generics
+from django.shortcuts import get_object_or_404
+from .models import Post
+from .serializers import PostSerializer
+
+class PostDetailView(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Post, pk=pk)
