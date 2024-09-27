@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p><small>Published on {{ post.published_date }} by {{ post.author }}</small></p>
+
+  {% if user == post.author %}
+    <a href="{% url 'post-edit' post.pk %}" class="btn btn-secondary">Edit</a>
+    <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+  {% endif %}
+  <a href="{% url 'post-list' %}" class="btn btn-info">Back to All Posts</a>
+{% endblock %}
+
+{% if user.is_authenticated %}
+  {% if user == post.author %}
+    <a href="{% url 'post-edit' post.pk %}" class="btn btn-secondary">Edit</a>
+    <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+  {% endif %}
+{% endif %}

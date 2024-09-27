@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ view.object.title|default:"Create New Post" }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">{{ view.object.pk|yesno:"Update,Create" }}</button>
+  </form>
+  <a href="{% url 'post-list' %}" class="btn btn-info">Back to All Posts</a>
+{% endblock %}
